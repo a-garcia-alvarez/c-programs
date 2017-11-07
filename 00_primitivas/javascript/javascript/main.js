@@ -1,3 +1,5 @@
 function main(){
-  alert("Hello World")
+    var stdout = document.getElementById("stdout")
+    stdout.innerHTML += "stdout: Hola Mundo!"
+    alert("stderr: Hello World")
 }
