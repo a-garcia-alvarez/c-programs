@@ -12,6 +12,19 @@ int main(){
     long int entero_largo = 93;
     unsigned positivo = 5;
 
+    /*
+     %i     interger
+     %li    long int
+     %u     unsigned int
+     %lu    long unsigned int
+     %c     char single character
+     %f     float as signed decimal
+     %lf    long float
+     %x.zf  x No of chars, z No of chars after dot
+     %e     float exponential format
+     %x     unsigned int in Hex format
+    */
+
     printf("entero %i \t(%lu bytes)\n", entero , sizeof(int));
     printf("entero_largo %li \t(%lu bytes)\n", entero_largo , sizeof(long int));
     printf("%u \t(%lu bytes)\n", positivo , sizeof(unsigned));
@@ -21,6 +34,8 @@ int main(){
 
     printf("%f \t(%lu bytes)\n", realillo , sizeof(float));
     printf("%lf \t(%lu bytes)\n", real , sizeof(double));
-    printf("%8.2f \t(%lu bytes)\n", real , sizeof(float));
+    //printf("%le \t(%lu bytes)\n", real , sizeof(double));
+     printf("%8.2lf \t(%lu bytes)\n", real , sizeof(float)); 
+
     return EXIT_SUCCESS;
 }
