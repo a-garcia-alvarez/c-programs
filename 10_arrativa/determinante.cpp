@@ -6,7 +6,7 @@
 int main(){
 
     int a[N][N] = {
-        {1,2,3},
+        {2,2,3},
         {4,5,6},
         {7,8,9}
     };
@@ -64,7 +64,13 @@ int main(){
         //printf("\t d: %i\t op1: %i\n",d,op1);
     }
     */
-
+    printf("El determinante de la matriz:\n");
+    for(int i=0;i<N;i++){
+        for(int b=0;b<N;b++)
+            printf("%4i ", a[i][b]);
+        printf("\n");
+    }
+    printf("es: %i\n", op0-op1);
 
 
     return EXIT_SUCCESS;
