@@ -2,7 +2,7 @@
 #include<stdlib.h>
 #include<stdio_ext.h>
 
-#define N 4
+#define N 3
 
 #define __DEBUG 1
 
@@ -40,13 +40,11 @@ void ask_matrix(double (*matrix)[N] ){
     for(int i=0;i<N;i++){
         for(int j=0;j<N;j++){
             do{
-                if( __DEBUG )
-                    fprintf(stderr,"Getting matrix [%i][%i]\n",i ,j);
+                if( __DEBUG ) fprintf(stderr,"Getting matrix [%i][%i]\n",i ,j);
                 printf("Introduce el valor [%i][%i]:\n >",i ,j);
                 success = scanf(" %lf", &matrix[i][j]);
                 if(success == EOF){
-                    if( __DEBUG )
-                        fprintf(stderr,"stdin is closed or I/O error\n");
+                    if( __DEBUG ) fprintf(stderr,"stdin is closed or I/O error\n");
                 }else if(success == 0){
                     if( __DEBUG ){
                         fprintf(stderr,"Some input was available, but did not make sense for a double.\n");
@@ -55,8 +53,7 @@ void ask_matrix(double (*matrix)[N] ){
                     __fpurge(stdin);
                 }else if(success == 1){
                     //success
-                    if( __DEBUG )
-                        fprintf(stderr,"Success getting matrix [%i][%i]\n",i ,j);
+                    if( __DEBUG ) fprintf(stderr,"Success getting matrix [%i][%i]\n",i ,j);
                 }
             }while(!success);
         }
@@ -80,15 +77,13 @@ void short_matrix(double (*m)[N] ){
             if( __DEBUG )
                 fprintf(stderr,"No shorting needed\n"); // filas ordenadas
             else{ // fila 2 > fila 1
-                if( __DEBUG )
-                    fprintf(stderr,"swap rows 1 and 2\n");
+                if( __DEBUG ) fprintf(stderr,"swap rows 1 and 2\n");
                 row_m_swap(m, 1, 2);
                 //call again
                 short_matrix(m);
             }
     }else{ // fila 1 > fila 0
-        if( __DEBUG )
-            fprintf(stderr,"swap rows 0 and 1\n");
+        if( __DEBUG ) fprintf(stderr,"swap rows 0 and 1\n");
         row_m_swap(m, 0, 1);
         //call again
         short_matrix(m);
@@ -103,22 +98,19 @@ void triangulate_matrix(double (*matrix)[N] ){
     double n0,n1,n2/*,n3,n4*/;
 
     n0=(m[1][0]/m[0][0]);
-    if( __DEBUG )
-        fprintf(stderr,"n0:%lf\n", n0);
+    if( __DEBUG ) fprintf(stderr,"n0:%lf\n", n0);
     for(int i=0;i<N;i++){
         m[1][i]-=(n0*m[0][i]);
     }
 
     n1=(m[2][0]/m[0][0]);
-    if( __DEBUG )
-        fprintf(stderr,"n1:%lf\n", n1);
+    if( __DEBUG ) fprintf(stderr,"n1:%lf\n", n1);
     for(int i=0;i<N;i++){
         m[2][i]-=(n1*m[0][i]);
     }
 
     n2=(m[2][1]/m[1][1]);
-    if( __DEBUG )
-        fprintf(stderr,"n2:%lf\n", n2);
+    if( __DEBUG ) fprintf(stderr,"n2:%lf\n", n2);
     for(int i=0;i<N;i++){
         m[2][i]-=(n2*m[1][i]);
     }
@@ -149,7 +141,7 @@ int gaus_matrix(double (*matrix)[N] ){
     bool d0=false;
     d=1;
     for(int j=0; j<N;j++){ // se recorre todas las filas
-    
+
         /* Check if matrix[j][j] is 0 */
         while( checkd_zero(m[j][j]) ){
             if( __DEBUG ) fprintf(stderr,"m[%i][%i] == 0\t (%lf) \n",j,j, m[j][j]);
@@ -166,6 +158,7 @@ int gaus_matrix(double (*matrix)[N] ){
                 if( ! checkd_zero(m[s][j]) ){
                     if( __DEBUG ) fprintf(stderr,"swaping f[%i] and f[%i]\n",j,s);
                     row_m_swap(matrix ,j,s);
+                    d*=(-1);
                     break;
                 }
             }
@@ -177,7 +170,7 @@ int gaus_matrix(double (*matrix)[N] ){
             break;
         }
         /* end Check if matrix[j][j] is 0 */
-        
+
         // normalizar fila, ajustar en base a coeficiente
         if( __DEBUG ) fprintf(stderr,"normalizar fila %i\n",j);
         d*=normalizar_fila(matrix,j);
@@ -219,9 +212,9 @@ int main(){
         /*={
             {1,1,3,-2},{2,-4,7,2},{3,-2,9,-1},{1,3,-1,-1}
         }*/
-        ={
+        /*={
             {1,2,3,4},{1,2,3,4},{8,9,10,11},{12,13,14,15}
-        }
+        }*/
     ;
 
     /*
