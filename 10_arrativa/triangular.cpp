@@ -36,7 +36,7 @@ bool checkd_zero(double d){
 void ask_matrix(double (*matrix)[N] ){
     //
     int success=0;
-    printf("Introduce una mariz cuadrada de %i x %i :", N, N);
+    printf("Introduce una mariz cuadrada de %i x %i :\n", N, N);
     for(int i=0;i<N;i++){
         for(int j=0;j<N;j++){
             do{
@@ -196,13 +196,15 @@ int gaus_matrix(double (*matrix)[N] ){
             fprintf(stderr,"\n\td: %lf\n",d);
         }
     }
+    return d;
 }
 
 
 
 int main(){
 
-    double matrix[N][N]
+    double det;
+    double matrix[N][M]
         /*={
           {0,0,0},{0,0,0},{0,0,0}
           }*/
@@ -237,13 +239,14 @@ int main(){
     /**/
     printf("\n");
     //normalizar_fila(matrix,0);
-    gaus_matrix(matrix);
+    det=gaus_matrix(matrix);
     /**/
     /*printf("\nTriangulating...\n\n");
       triangulate_matrix(matrix);
       printf("Your triangulated matrix is:\n");
       */
     print_matrix(matrix);
+    printf("\n matrix determinant is: %.4lf\n", det);
 
 
 
