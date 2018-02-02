@@ -2,10 +2,10 @@
 #include<stdlib.h>
 #include<stdio_ext.h>
 
-#define N 5
+#define N 3
 #define M N+1
 
-#define __DEBUG 1
+#define __DEBUG 0
 
 
 void print_matrix(double (*matrix)[M] ){
@@ -235,37 +235,68 @@ int main(){
       triangulate_matrix(matrix);
       printf("Your triangulated matrix is:\n");
       */
-      
-    if(det){
-/*c0*/	    x[cima++]=matrix[N-1][M-1];
-	    printf("z: %.2lf\n", x[cima-1]);
-/*c1*/	    x[cima++]=matrix[N-2][M-1] - matrix[N-2][M-2]*x[cima-1];
 
-/*c2*/	    x[cima++]=matrix[N-3][M-1] - matrix[N-3][M-3]*x[cima-2]
-	                               - matrix[N-2][M-2]*x[cima-1];
-	                               
-/*c3*/	    x[cima++]=matrix[N-4][M-1] - matrix[N-4][M-4]*x[cima-3]
-	                               - matrix[N-3][M-3]*x[cima-2]
-	                               - matrix[N-2][M-2]*x[cima-1];
-	                               
-/*c4*/	    x[cima++]=matrix[N-5][M-1] - matrix[N-5][M-5]*x[cima-4]
-	                               - matrix[N-4][M-4]*x[cima-3]
-	                               - matrix[N-3][M-3]*x[cima-2]
-	                               - matrix[N-2][M-2]*x[cima-1];
-	    /**/
-	    for(int i=0;i<N;i++){
-	        x[cima]=matrix[(N-1)- i][M-1];
-		for(int a=0;a<i;a++)
-		  x[cima]-=matrix[N-1][M-1];
-	    }
-	    /**/
+    if(det){
+        /*
+        //c0
+        x[cima++]=matrix[N-1][M-1];
+        printf("z: %.2lf\n", x[cima-1]);
+        //c1
+        x[cima++]=matrix[N-2][M-1] - matrix[N-2][M-2]*x[cima-1];
+
+        //c2
+        x[cima++]=matrix[N-3][M-1] - matrix[N-3][M-3]*x[cima-1]
+                                   - matrix[N-3][M-2]*x[cima-2];
+
+
+        //c3
+        x[cima++]=matrix[N-4][M-1] - matrix[N-4][M-4]*x[cima-1]
+                                   - matrix[N-4][M-3]*x[cima-2]
+                                   - matrix[N-4][M-2]*x[cima-3];
+
+        //c4
+        x[cima++]=matrix[N-5][M-1] - matrix[N-5][M-5]*x[cima-4]
+                                   - matrix[N-5][M-4]*x[cima-3]
+                                   - matrix[N-5][M-3]*x[cima-2]
+                                   - matrix[N-5][M-2]*x[cima-1];
+        */
+           /*
+           for(int i=0;i<N;i++){
+           x[cima]=matrix[(N-1)- i][M-1];
+           for(int a=0;a<i;a++)
+           x[cima]-=matrix[N-1][M-1];
+           }
+           */
+        /**/
+            for(int i=0; i<N; i++){
+                x[i]=0;
+                if( __DEBUG  ){
+                    fprintf(stderr,"i: %i\n",i);
+                    fprintf(stderr,"x[%i]=matrix[((N-1)-%i)][M-1];\n",i,i);
+                }
+                x[i]=matrix[((N-1)-i)][M-1];
+                for(int j=i; j>0; j--){
+                    if( __DEBUG   ){
+                        fprintf(stderr,"\tj: %i\n",j);
+                        //fprintf(stderr,"x[%i]-=  matrix[N-1-%i][M-1-%i]*x[%i-1];\n",i,i,j,j);
+                    }
+                    x[i]-=  matrix[N-1-i][M-1-j]*x[j-1];
+                }
+                if( __DEBUG   ) fprintf(stderr,"x[%i]= %lf\n",i, x[i]);
+            }
+	  /**/
     }else{
        printf("det: 0, system not solvable\n");
     }
     print_matrix(matrix);
     printf("\n matrix determinant is: %.4lf\n", det);
+    /*
     printf("z: %.2lf \t y: %.2lf \t x: %.2lf\n",x[0],x[1],x[2]);
     printf("a: %.2lf \t b: %.2lf\n",x[3],x[4]);
+    */
+    for(int i=0;i<N;i++){
+        printf("incognita [%i]: %.4lf\n",i, x[i]);
+    }
 
 
 
