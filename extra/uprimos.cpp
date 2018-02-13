@@ -7,11 +7,11 @@
 #define verbose 0
 
 int ask_int(char const *text){
-    int num;
+    unsigned int num;
     int success;
     do{
         printf("%s", text);
-        success = scanf(" %i", &num);
+        success = scanf(" %u", &num);
 
         if(success == EOF){
             if( verbose ) fprintf(stderr,"stdin is closed or I/O error\n");
@@ -28,43 +28,32 @@ int ask_int(char const *text){
     }while(!success);
     return num;
 }
-void print_arr(int *arr,int a){
-    for (int i=0; i<a; i++)
-        printf("%4i, ",i);
-    printf("\n");
-
-    for(int i=0; i<a; i++)
-        printf("%4i, ", arr[i]);
-    printf("\n");
-}
 
 int main(){
 
     // declaration of initial size and array pointer
-    int msize=M;
-    int *arr = NULL;
+    unsigned int msize=M;
+    unsigned int *arr = NULL;
 
     //int  arr[M];
     //int rem=M, remo=M;
-    int rem=msize, remo=msize; //
+    unsigned int rem=msize, remo=msize; //
     //int *p_next = &arr[3];
-    int next;
+    unsigned int next;
 
     // Set new size, allocate memory, and set remaining size
     msize=ask_int("Introduce el numero maximo: ")+1;
-    arr = (int*) malloc( msize*sizeof(int)  );
+    arr = (unsigned int*) malloc( msize*sizeof(unsigned int)  );
     rem=msize;
     remo=msize;
 
-    for(int i=0; i<msize; i++)
+    for(unsigned int i=0; i<msize; i++)
         arr[i]=i;
 
-    for(int i=2; i<rem; i++){
-        if(true /*verbose*/) printf("dividing by arr[%i] (%i) \n", i,arr[i]);
+    for(unsigned int i=2; i<rem; i++){
+        if(verbose) printf("dividing by arr[%i] (%i) \n", i,arr[i]);
         next=i+1;
-        printf("actual:\n");
-        print_arr(arr,rem);
-        for(int j=(i+1); j<rem; j++){
+        for(unsigned int j=(i+1); j<rem; j++){
             if(  !(arr[j]%arr[i]) ){
                 if(verbose) printf("\tarr[%i] (%i) confirmed not prime\n", j,arr[j]);
                 remo--;
@@ -79,22 +68,14 @@ int main(){
             }
         }
         rem=remo;
-        arr = (int*) realloc (arr, rem * sizeof(int));
-        printf("cribada:\n");
-        print_arr(arr,rem);
-        printf("\n");
+        arr = (unsigned int*) realloc (arr, rem * sizeof(unsigned int));
 
 
     }
-    
-    printf("\n\nFinal:\n");
-    print_arr(arr,rem);
 
-/*
-    for(int i=0; i<rem; i++)
+    for(unsigned int i=0; i<rem; i++)
         printf("%i, ", arr[i]);
     printf("\n");
-*/
     free(arr);
     return EXIT_SUCCESS;
 }
