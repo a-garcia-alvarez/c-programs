@@ -4,6 +4,7 @@
 
 int main()
 {
+    setlocale(LC_ALL,"");
     wint_t ch;
     //cchar_t ch;
 
@@ -43,7 +44,7 @@ int main()
     wrefresh(stdscr);                      /* Imprime stdscr en la pantalla real      */
     halfdelay(20);
     getch();
-    clear();
+    //clear();
     }while(ch!=KEY_F(10));
     endwin();
     return 0;
