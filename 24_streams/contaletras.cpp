@@ -5,10 +5,8 @@
 int main(){
 
     FILE *tubico=NULL;
-    char letra_buscada, letra_leida;
-    char file_name[30];
+    char letra, file_name[30];
     int contador=0;
-
 
     printf("nombre del fichero en el que buscar: ");
     scanf(" %s", file_name);
@@ -19,11 +17,9 @@ int main(){
     tubico = fopen(file_name,"r");
 
     while(! feof(tubico))
-    {
-        letra_leida = fgetc(tubico);
-        if(letra_buscada == letra_leida)
+        if(letra_buscada == fgetc(tubico))
             contador++;
-    }
+
     fclose(tubico);
 
     printf("La letra %c aparece en el fichero %s %i veces\n",
