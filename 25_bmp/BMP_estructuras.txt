@@ -1,0 +1,290 @@
+/*
+ * Known header type sizes:
+ *
+ *  12 - BITMAPCOREHEADER or OS21XBITMAPHEADER
+ *  16 - OS22XBITMAPHEADER (short)
+ *  40 - BITMAPINFOHEADER
+ *  52 - BITMAPV2INFOHEADER
+ *  56 - BITMAPV3INFOHEADER
+ *  64 - OS22XBITMAPHEADER (full)
+ * 108 - BITMAPV4HEADER
+ * 124 - BITMAPV5HEADER
+ *
+ */
+
+WORD:   unsigned 16 bits int
+DWORD:  unsigned 32 bits int
+LONG:   signed 32 bits int
+SHORT:  signed 16 bits int
+  
+#define WORD   unsigned int16_t
+#define DWORD  unsigned int32_t
+#define SHORT  int16_t
+#define LONG   int32_t
+
+
+/*
+BITMAPCOREHEADER (12 bytes):
+         *    DWORD Size              - Size of this header in bytes
+         *    SHORT Width             - Image width in pixels
+         *    SHORT Height            - Image height in pixels
+         *    WORD  Planes            - Number of color planes
+         *    WORD  BitsPerPixel      - Number of bits per pixel
+     
+BITMAPCOREHEADER (12 bytes)     END
+
+BITMAPCOREHEADER2 (64 bytes):
+         *    DWORD Size              - Size of this header in bytes
+         *    SHORT Width             - Image width in pixels
+         *    SHORT Height            - Image height in pixels
+         *    WORD  Planes            - Number of color planes
+         *    WORD  BitsPerPixel      - Number of bits per pixel
+         
+         *    DWORD  Compression      - Bitmap compression scheme
+         *    DWORD  ImageDataSize    - Size of bitmap data in bytes
+         *    DWORD  XResolution      - X resolution of display device
+         *    DWORD  YResolution      - Y resolution of display device
+         *    DWORD  ColorsUsed       - Number of color table indices used
+         *    DWORD  ColorsImportant  - Number of important color indices
+         *    WORD   Units            - Type of units used to measure resolution
+         *    WORD   Reserved         - Pad structure to 4-byte boundary
+         *    WORD   Recording        - Recording algorithm
+         *    WORD   Rendering        - Halftoning algorithm used
+         *    DWORD  Size1            - Reserved for halftoning algorithm use
+         *    DWORD  Size2            - Reserved for halftoning algorithm use
+         *    DWORD  ColorEncoding    - Color model used in bitmap
+         *    DWORD  Identifier       - Reserved for application use
+         
+BITMAPCOREHEADER (64 bytes)     END
+
+
+
+BITMAPINFOHEADER (40 bytes):
+         *    DWORD Size              - Size of this header in bytes
+         *    LONG  Width             - Image width in pixels
+         *    LONG  Height            - Image height in pixels
+         *    WORD  Planes            - Number of color planes
+         *    WORD  BitsPerPixel      - Number of bits per pixel
+         *    DWORD Compression       - Compression methods used
+         *    DWORD SizeOfBitmap      - Size of bitmap in bytes
+         *    LONG  HorzResolution    - Horizontal resolution in pixels per meter
+         *    LONG  VertResolution    - Vertical resolution in pixels per meter
+         *    DWORD ColorsUsed        - Number of colors in the image
+         *    DWORD ColorsImportant   - Minimum number of important colors
+         
+BITMAPINFOHEADER (40 bytes)     END
+
+BITMAPV2INFOHEADER (52 bytes):
+         *    DWORD Size              - Size of this header in bytes
+         *    LONG  Width             - Image width in pixels
+         *    LONG  Height            - Image height in pixels
+         *    WORD  Planes            - Number of color planes
+         *    WORD  BitsPerPixel      - Number of bits per pixel
+         *    DWORD Compression       - Compression methods used
+         *    DWORD SizeOfBitmap      - Size of bitmap in bytes
+         *    LONG  HorzResolution    - Horizontal resolution in pixels per meter
+         *    LONG  VertResolution    - Vertical resolution in pixels per meter
+         *    DWORD ColorsUsed        - Number of colors in the image
+         *    DWORD ColorsImportant   - Minimum number of important colors
+         
+         *    DWORD RedMask           - Mask identifying bits of red component
+         *    DWORD GreenMask         - Mask identifying bits of green component
+         *    DWORD BlueMask          - Mask identifying bits of blue component
+         
+BITMAPV2INFOHEADER (52 bytes)   END
+
+BITMAPV3INFOHEADER (56 bytes):
+         *    DWORD Size              - Size of this header in bytes
+         *    LONG  Width             - Image width in pixels
+         *    LONG  Height            - Image height in pixels
+         *    WORD  Planes            - Number of color planes
+         *    WORD  BitsPerPixel      - Number of bits per pixel
+         *    DWORD Compression       - Compression methods used
+         *    DWORD SizeOfBitmap      - Size of bitmap in bytes
+         *    LONG  HorzResolution    - Horizontal resolution in pixels per meter
+         *    LONG  VertResolution    - Vertical resolution in pixels per meter
+         *    DWORD ColorsUsed        - Number of colors in the image
+         *    DWORD ColorsImportant   - Minimum number of important colors
+         
+         *    DWORD RedMask           - Mask identifying bits of red component
+         *    DWORD GreenMask         - Mask identifying bits of green component
+         *    DWORD BlueMask          - Mask identifying bits of blue component
+         
+         *    DWORD AlphaMask         - Mask identifying bits of alpha component
+         
+BITMAPV3INFOHEADER (56 bytes)   END
+
+BITMAPV4HEADER (108 bytes):
+         *    DWORD Size              - Size of this header in bytes
+         *    LONG  Width             - Image width in pixels
+         *    LONG  Height            - Image height in pixels
+         *    WORD  Planes            - Number of color planes
+         *    WORD  BitsPerPixel      - Number of bits per pixel
+         *    DWORD Compression       - Compression methods used
+         *    DWORD SizeOfBitmap      - Size of bitmap in bytes
+         *    LONG  HorzResolution    - Horizontal resolution in pixels per meter
+         *    LONG  VertResolution    - Vertical resolution in pixels per meter
+         *    DWORD ColorsUsed        - Number of colors in the image
+         *    DWORD ColorsImportant   - Minimum number of important colors
+         
+         *    DWORD RedMask           - Mask identifying bits of red component
+         *    DWORD GreenMask         - Mask identifying bits of green component
+         *    DWORD BlueMask          - Mask identifying bits of blue component
+         
+         *    DWORD AlphaMask         - Mask identifying bits of alpha component
+         
+         *    DWORD CSType            - Color space type
+         *    LONG  RedX              - X coordinate of red endpoint
+         *    LONG  RedY              - Y coordinate of red endpoint
+         *    LONG  RedZ              - Z coordinate of red endpoint
+         *    LONG  GreenX            - X coordinate of green endpoint
+         *    LONG  GreenY            - Y coordinate of green endpoint
+         *    LONG  GreenZ            - Z coordinate of green endpoint
+         *    LONG  BlueX             - X coordinate of blue endpoint
+         *    LONG  BlueY             - Y coordinate of blue endpoint
+         *    LONG  BlueZ             - Z coordinate of blue endpoint
+         *    DWORD GammaRed          - Gamma red coordinate scale value
+         *    DWORD GammaGreen        - Gamma green coordinate scale value
+         *    DWORD GammaBlue         - Gamma blue coordinate scale value
+         
+BITMAPV4HEADER (108 bytes)      END
+
+BITMAPV5HEADER (124 bytes):
+         *    DWORD Size              - Size of this header in bytes
+         *    LONG  Width             - Image width in pixels
+         *    LONG  Height            - Image height in pixels
+         *    WORD  Planes            - Number of color planes
+         *    WORD  BitsPerPixel      - Number of bits per pixel
+         *    DWORD Compression       - Compression methods used
+         *    DWORD SizeOfBitmap      - Size of bitmap in bytes
+         *    LONG  HorzResolution    - Horizontal resolution in pixels per meter
+         *    LONG  VertResolution    - Vertical resolution in pixels per meter
+         *    DWORD ColorsUsed        - Number of colors in the image
+         *    DWORD ColorsImportant   - Minimum number of important colors
+         
+         *    DWORD RedMask           - Mask identifying bits of red component
+         *    DWORD GreenMask         - Mask identifying bits of green component
+         *    DWORD BlueMask          - Mask identifying bits of blue component
+         
+         *    DWORD AlphaMask         - Mask identifying bits of alpha component
+         
+         *    DWORD CSType            - Color space type
+         *    LONG  RedX              - X coordinate of red endpoint
+         *    LONG  RedY              - Y coordinate of red endpoint
+         *    LONG  RedZ              - Z coordinate of red endpoint
+         *    LONG  GreenX            - X coordinate of green endpoint
+         *    LONG  GreenY            - Y coordinate of green endpoint
+         *    LONG  GreenZ            - Z coordinate of green endpoint
+         *    LONG  BlueX             - X coordinate of blue endpoint
+         *    LONG  BlueY             - Y coordinate of blue endpoint
+         *    LONG  BlueZ             - Z coordinate of blue endpoint
+         *    DWORD GammaRed          - Gamma red coordinate scale value
+         *    DWORD GammaGreen        - Gamma green coordinate scale value
+         *    DWORD GammaBlue         - Gamma blue coordinate scale value
+         
+         *    DWORD Intent            - Rendering intent for bitmap
+         *    DWORD ProfileData       - Offset of the profile data relative to BITMAPV5HEADER
+         *    DWORD ProfileSize       - Size, in bytes, of embedded profile data
+         *    DWORD Reserved          - Shall be zero
+         
+BITMAPV5HEADER (124 bytes)      END
+
+
+
+
+
+
+
+// from: https://github.com/drewnoakes/metadata-extractor/blob/master/Source/com/drew/metadata/bmp/BmpReader.java
+
+        /*
+         * BITMAPCOREHEADER (12 bytes):
+         *
+         *    DWORD Size              - Size of this header in bytes
+         *    SHORT Width             - Image width in pixels
+         *    SHORT Height            - Image height in pixels
+         *    WORD  Planes            - Number of color planes
+         *    WORD  BitsPerPixel      - Number of bits per pixel
+         *
+         * OS21XBITMAPHEADER (12 bytes):
+         *
+         *    DWORD  Size             - Size of this structure in bytes
+         *    WORD   Width            - Bitmap width in pixels
+         *    WORD   Height           - Bitmap height in pixel
+         *      WORD   NumPlanes        - Number of bit planes (color depth)
+         *    WORD   BitsPerPixel     - Number of bits per pixel per plane
+         *
+         * OS22XBITMAPHEADER (16/64 bytes):
+         *
+         *    DWORD  Size             - Size of this structure in bytes
+         *    DWORD  Width            - Bitmap width in pixels
+         *    DWORD  Height           - Bitmap height in pixel
+         *      WORD   NumPlanes        - Number of bit planes (color depth)
+         *    WORD   BitsPerPixel     - Number of bits per pixel per plane
+         *
+         *    - Short version ends here -
+         *
+         *    DWORD  Compression      - Bitmap compression scheme
+         *    DWORD  ImageDataSize    - Size of bitmap data in bytes
+         *    DWORD  XResolution      - X resolution of display device
+         *    DWORD  YResolution      - Y resolution of display device
+         *    DWORD  ColorsUsed       - Number of color table indices used
+         *    DWORD  ColorsImportant  - Number of important color indices
+         *    WORD   Units            - Type of units used to measure resolution
+         *    WORD   Reserved         - Pad structure to 4-byte boundary
+         *    WORD   Recording        - Recording algorithm
+         *    WORD   Rendering        - Halftoning algorithm used
+         *    DWORD  Size1            - Reserved for halftoning algorithm use
+         *    DWORD  Size2            - Reserved for halftoning algorithm use
+         *    DWORD  ColorEncoding    - Color model used in bitmap
+         *    DWORD  Identifier       - Reserved for application use
+         *
+         * BITMAPINFOHEADER (40 bytes), BITMAPV2INFOHEADER (52 bytes), BITMAPV3INFOHEADER (56 bytes),
+         * BITMAPV4HEADER (108 bytes) and BITMAPV5HEADER (124 bytes):
+         *
+         *    DWORD Size              - Size of this header in bytes
+         *    LONG  Width             - Image width in pixels
+         *    LONG  Height            - Image height in pixels
+         *    WORD  Planes            - Number of color planes
+         *    WORD  BitsPerPixel      - Number of bits per pixel
+         *    DWORD Compression       - Compression methods used
+         *    DWORD SizeOfBitmap      - Size of bitmap in bytes
+         *    LONG  HorzResolution    - Horizontal resolution in pixels per meter
+         *    LONG  VertResolution    - Vertical resolution in pixels per meter
+         *    DWORD ColorsUsed        - Number of colors in the image
+         *    DWORD ColorsImportant   - Minimum number of important colors
+         *
+         *    - BITMAPINFOHEADER ends here -
+         *
+         *    DWORD RedMask           - Mask identifying bits of red component
+         *    DWORD GreenMask         - Mask identifying bits of green component
+         *    DWORD BlueMask          - Mask identifying bits of blue component
+         *
+         *    - BITMAPV2INFOHEADER ends here -
+         *
+         *    DWORD AlphaMask         - Mask identifying bits of alpha component
+         *
+         *    - BITMAPV3INFOHEADER ends here -
+         *
+         *    DWORD CSType            - Color space type
+         *    LONG  RedX              - X coordinate of red endpoint
+         *    LONG  RedY              - Y coordinate of red endpoint
+         *    LONG  RedZ              - Z coordinate of red endpoint
+         *    LONG  GreenX            - X coordinate of green endpoint
+         *    LONG  GreenY            - Y coordinate of green endpoint
+         *    LONG  GreenZ            - Z coordinate of green endpoint
+         *    LONG  BlueX             - X coordinate of blue endpoint
+         *    LONG  BlueY             - Y coordinate of blue endpoint
+         *    LONG  BlueZ             - Z coordinate of blue endpoint
+         *    DWORD GammaRed          - Gamma red coordinate scale value
+         *    DWORD GammaGreen        - Gamma green coordinate scale value
+         *    DWORD GammaBlue         - Gamma blue coordinate scale value
+         *
+         *    - BITMAPV4HEADER ends here -
+         *
+         *    DWORD Intent            - Rendering intent for bitmap
+         *    DWORD ProfileData       - Offset of the profile data relative to BITMAPV5HEADER
+         *    DWORD ProfileSize       - Size, in bytes, of embedded profile data
+         *    DWORD Reserved          - Shall be zero
+         *
+         */
