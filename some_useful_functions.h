@@ -21,7 +21,7 @@ bool ask_YN(){
         success=scanf(" %c", &ans);
 
         if(success == EOF){
-            DEBUG(stderr,"stdin is closed or I/O error\n");
+            DEBUG("stdin is closed or I/O error\n");
         }else if(success == 0){
             DEBUG("Some input was available, but did not make sense f    or a double.\n");
             DEBUG("Purgin stdin\n");
@@ -43,6 +43,26 @@ bool ask_YN(){
         return true;
     else
         return false;
+}
+
+int ask_int(char const *text, int *num){
+    int success;
+    do{
+        printf("%s", text);
+        success = scanf(" %i", num);
+
+        if(success == EOF){
+            DEBUG("stdin is closed or I/O error\n");
+        }else if(success == 0){
+            DEBUG("Some input was available, but did not make sense.\n");
+            DEBUG("Purgin stdin\n");
+            }
+            __fpurge(stdin);
+        }else if(success == 1){
+            //success
+            DEBUG("Success getting int\n");
+        }
+    }while(!success);
 }
 
 char * ask_file(char string[])
@@ -70,5 +90,8 @@ char * ask_file(char string[])
     memcpy(p_name, file_name, strlen(file_name)*sizeof(char));
     return p_name;
 }
+
+
+
 
 #endif
